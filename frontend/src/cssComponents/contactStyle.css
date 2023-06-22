@@ -1,0 +1,30 @@
+.titulo{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.boxForm{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.contenedorForms{
+   background-color: #111;
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.divBotonVolver{
+    background-color: #111;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+

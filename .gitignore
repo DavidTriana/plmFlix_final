@@ -1,0 +1,5 @@
+# Ignorar dependencias de Node.js
+/backend/node_modules
+
+# Ignorar dependencias de React
+/frontend/node_module

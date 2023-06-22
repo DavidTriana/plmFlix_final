@@ -1,0 +1,98 @@
+const express = require("express");
+const router = express.Router();
+const User = require("../models/User");
+const Video = require("../models/Videos");
+const Profile = require("../models/Profile");
+const categorias = require("../models/Categorias");
+const contacto = require("../models/Contacto");
+const mongoose = require("mongoose");
+const cheerio = require('cheerio');
+const axios = require('axios');
+
+router.post("/:user/:profile", async function (req, res) {
+    
+    console.log("ha llegado hasta aqui");
+
+    const username = req.params.user;
+    const profileName = req.params.profile;
+
+    const usuario = await User.findOne({
+        username: username
+    }, "_id");
+    
+    const newContact = new contacto({
+        email: req.body.email,
+        asunto: req.body.asunto,
+        cuerpo: req.body.cuerpo,
+        user: usuario._id,
+        resuelto: false,
+        respuesta: "Sin respuesta.",
+    });
+
+    await newContact.save();
+
+    return res.json(newContact);
+
+});
+
+router.put("/forms/administrador/:idForm", async function (req, res) {
+
+    try {
+        const idFormulario = req.params.idForm;
+        const respuestaAdmin = req.body.respuesta;
+    
+        const data = {
+          respuesta: respuestaAdmin,
+          resuelto: true,
+        };
+    
+        const formularioActualizado = await contacto.findByIdAndUpdate(
+          idFormulario,
+          data,
+          { new: true }
+        );
+
+        return res.json(formularioActualizado);
+
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ mensaje: "Error al resolver una consulta" });
+      }
+    
+});
+
+router.get("/forms/administrador", async function(req, res) {
+    
+    const formulariosResueltos = await contacto.find({ resuelto: true });
+    const formulariosNoResueltos = await contacto.find({ resuelto: false });
+
+ 
+    let respuesta ={
+        formulariosResueltos,
+        formulariosNoResueltos
+    }
+
+    return res.json(respuesta);
+    
+});
+
+router.get("/:user/:profile/forms", async function(req, res) {
+
+    const username = req.params.user;
+    const profileName = req.params.profile;
+    
+    const usuario = await User.findOne({
+        username: username
+    }, "_id");
+
+    const formulariosResueltos = await contacto.find({ user: usuario._id, resuelto: true });
+    const formulariosNoResueltos = await contacto.find({ user: usuario._id, resuelto: false });
+
+    res.json({
+        formulariosResueltos,
+        formulariosNoResueltos
+      });
+  
+});
+
+module.exports = router;

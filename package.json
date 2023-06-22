@@ -1,0 +1,14 @@
+{
+  "name": "plmflix-gp13",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd backend && node index.js",
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build && rm -rf node_modules",
+    "test": "echo \"Error: no test specified \" && exit 1"
+    },
+
+  "author": "",
+  "license": "ISC"
+}
