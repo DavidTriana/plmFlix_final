@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("config");
 
-const db = "mongodb://127.0.0.1:27017/PLM-FLIX"; // process.env.MONGO_URI;;
+const db = process.env.MONGO_URI; // mongodb://127.0.0.1:27017/PLM-FLIX";
 
 const connectDB = async () => {
    console.log("intentando conectar");
