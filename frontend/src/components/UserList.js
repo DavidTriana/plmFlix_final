@@ -75,7 +75,7 @@ export default function UserList() {
       .then((response)=>{
       setUsers(response.data);
      });
-        }, [users]);
+        }, []);
       
         return (
           <div>
