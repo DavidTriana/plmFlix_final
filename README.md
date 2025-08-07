@@ -27,3 +27,7 @@ Instead of using actual copyrighted content, this application allows administrat
 - **Database:** MongoDB Atlas (cloud-hosted)
 
 ---
+
+## Authors
+
+David Triana, Valentín Santos, Weptzel Eduardo Morales, Pablo Galván
